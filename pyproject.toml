@@ -1,0 +1,42 @@
+[project]
+name = "codon-opt"
+version = "0.1.0"
+description = "Energy-efficient mRNA codon optimization via Potts/Ising sampling on thermodynamic hardware (paper companion code)."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    # Core sampling library the Potts/Ising models are built on.
+    "thrml",
+    # JAX stack (also pulled in by thrml, listed here because the code imports it directly).
+    "jax",
+    "equinox",
+    "jaxtyping",
+    "numpy",
+    # Codon-usage frequency tables (host organism statistics).
+    "python_codon_tables",
+    # Plotting of convergence / solution diagnostics.
+    "matplotlib",
+    # Used by the qodon genetic-algorithm baseline and its scorer.
+    "pandas",
+    "biopython",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+# thrml is the open-source THRML library released with the paper; install it from GitHub.
+[tool.uv.sources]
+thrml = { git = "https://github.com/extropic-ai/thrml.git" }
+
+# This is a flat-layout research repo: modules (problem.py, potts/, ising/, ...) are run
+# directly from the repo root (e.g. `uv run python -m potts.main`). We do not install the
+# repo itself as a package, so tell uv to manage dependencies only.
+[tool.uv]
+package = false
+# Linux-only resolution; `uv run` installs the CUDA build of JAX by default
+# (the `gpu` group). CPU-only machines: `uv sync --no-default-groups`.
+environments = ["sys_platform == 'linux'"]
+default-groups = ["gpu"]
+
+[dependency-groups]
+gpu = ["jax[cuda12]"]

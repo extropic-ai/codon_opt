@@ -1,0 +1,21 @@
+# Runtime dependencies for the codon-optimization companion code.
+# For tests, additionally install pytest.
+
+# Core sampling library the Potts/Ising models are built on (open-sourced with the paper).
+thrml @ git+https://github.com/extropic-ai/thrml.git
+
+# JAX stack (also a thrml dependency; the code imports it directly).
+jax
+equinox
+jaxtyping
+numpy
+
+# Codon-usage frequency tables (host organism statistics).
+python_codon_tables
+
+# Plotting of convergence / solution diagnostics.
+matplotlib
+
+# Used by the qodon genetic-algorithm baseline and its scorer.
+pandas
+biopython

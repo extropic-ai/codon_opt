@@ -1,0 +1,20 @@
+output/
+
+.idea/
+
+# Python / uv
+.venv/
+__pycache__/
+*.py[cod]
+
+# Ablation study outputs
+potts_ablation/results/
+potts_ablation/configs/
+potts_ablation/plots/
+potts_ablation/job_outputs/
+potts_ablation/analysis_summary.json
+potts_ablation/analysis_summary.csv
+
+# Keep directory structure
+!potts_ablation/results/.gitkeep
+!potts_ablation/configs/.gitkeep
